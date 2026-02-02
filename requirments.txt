@@ -1,0 +1,17 @@
+ollama
+Langchain
+Langchain_core
+Langchain_classic
+Langchain_community
+datetime
+faster-whisper 
+sounddevice 
+numpy 
+scipy
+pyttsx3
+edge_tts
+pymongo
+bcrypt
+dotenv
+PyJWT
+fastapi

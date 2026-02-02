@@ -1,0 +1,13 @@
+import secrets
+import bcrypt
+class Security:
+    def hash_password(self,password:str)->bytes:
+        return bcrypt.hashpw(password.encode(),bcrypt.gensalt())
+    def verify_password(self,password:str,hashed:bytes)->bool:
+        return bcrypt.checkpw(password.encode(),hashed)
+    def hash_otp(self,otp:str)->bytes:
+        return bcrypt.hashpw(otp.encode(),bcrypt.gensalt())
+    def verify_otp(self,otp:str,hashed:bytes)->bool:
+        return bcrypt.checkpw(otp.encode(),hashed)
+    def generate_otp(self):
+        return f"{secrets.randbelow(1_000_000):06d}"
