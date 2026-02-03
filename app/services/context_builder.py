@@ -24,3 +24,4 @@ def get_chat_context(conversation_id: str):
             "content": SYSTEM_PROMPT_TEMPLATE
         })
     return context
+

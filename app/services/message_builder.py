@@ -1,16 +1,21 @@
 from app.services.context_builder import get_chat_context
 from app.models.llamma_core import LinguaMentor
-from app.core.database import messages
+from app.core.database import messages,conversations
 from bson import ObjectId
 from datetime import datetime, timezone
+from app.core.config import MAX_HISTORY_LENGTH
 def chat_builder(conversation_id: str, user_input: str):
     convo_id = ObjectId(conversation_id)
     total_messages = messages.count_documents({
         "conversation_id": convo_id,
         "role": {"$ne": "system"}   
     })
+    chat = conversations.find_one({"_id": convo_id})
 
-    if total_messages >= 50:
+    if chat["message_count"] >= MAX_HISTORY_LENGTH:
+        conversations.find_one({"_id": convo_id},{
+            "$set":{"active":False}
+        })
         return "Your message limit has been exceeded. Please open a new chat."
 
     context = get_chat_context(conversation_id)
@@ -23,7 +28,7 @@ def chat_builder(conversation_id: str, user_input: str):
         "conversation_id": convo_id,
         "role": "user",
         "content": user_input,
-        "timestamp": now
+        "timestamp": datetime.now(timezone.utc)
     })
     model = LinguaMentor()
     response = model.generate_reply(context)
@@ -31,7 +36,9 @@ def chat_builder(conversation_id: str, user_input: str):
         "conversation_id": convo_id,
         "role": "assistant",
         "content": response,
-        "timestamp": now
+        "timestamp": datetime.now(timezone.utc)
     })
-
+    conversations.update_one({"_id":convo_id},{
+        "$inc":{"message_count":1}
+    })
     return response
