@@ -54,8 +54,13 @@ class Signup:
         if not record:
             raise ValueError("OTP not found")
 
-        if datetime.now(timezone.utc)> record["expires_at"]:
+        expires_at = record["expires_at"]
+
+        if expires_at.tzinfo is None:
+            expires_at = expires_at.replace(tzinfo=timezone.utc)
+        if datetime.now(timezone.utc) > expires_at:
             raise ValueError("OTP expired")
+
 
         if record["attempts"] >= 5:
             raise ValueError("Too many attempts")
@@ -88,8 +93,8 @@ class Signup:
 if __name__ == "__main__":
 
     signup = Signup(
-        "hemanthlokesh58@gmail.com",
-        "Hemanth1705",
+        "1dt23ca014@dsatm.edu.in",
+        "Karki",
         "abc@123"
     )
 

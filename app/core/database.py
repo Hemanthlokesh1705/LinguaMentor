@@ -11,7 +11,8 @@ def connect_db():
         global client,db,users,email_verifications,conversations,messages
         client=MongoClient(
             "mongodb://127.0.0.1:27017/",
-            serverSelectionTimeoutMS=3000
+            serverSelectionTimeoutMS=3000,
+            tz_aware=True
             )
         client.admin.command("ping")
         db=client["LinguaMentor"]
