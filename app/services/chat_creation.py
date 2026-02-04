@@ -3,10 +3,8 @@ from app.utils.jwt_utils import verify_token
 from datetime import datetime, timezone, date
 from bson import ObjectId
 from app.models.system_prompt_template import SYSTEM_PROMPT_TEMPLATE
-def create_newchat(token: str, title: str = "New Chat"):
+def create_newchat(user_id:str, title: str = "New Chat"):
     try:
-        payload = verify_token(token)
-        user_id = payload["user_id"]
         user_object_id = ObjectId(user_id)
         conversations.update_many(
             {"user_id": user_object_id, "active": True},
@@ -33,3 +31,5 @@ def create_newchat(token: str, title: str = "New Chat"):
 
     except Exception as e:
         raise RuntimeError(f"Error creating conversation: {e}")
+
+

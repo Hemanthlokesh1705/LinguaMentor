@@ -1,11 +1,9 @@
 from app.core.database import conversations, messages
 from bson import ObjectId
-from app.services.chat_creation import verify_token
-def delete_conversation(token: str, conversation_id: str) -> bool:
+def delete_conversation( conversation_id: str,user_id:str) -> bool:
     try:
-        payload=verify_token(token)
         convo_object_id = ObjectId(conversation_id)
-        user_object_id = ObjectId(payload["user_id"])
+        user_object_id = ObjectId(user_id)
         result = conversations.delete_one({
             "_id": convo_object_id,
             "user_id": user_object_id

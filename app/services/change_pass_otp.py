@@ -27,4 +27,4 @@ def reset_password_request_otp(email):
 
     return "If email exists, OTP sent"
 
-reset_password_request_otp("hemanthlokesh581@gmail.com")
+reset_password_request_otp("hemanthlokesh58@gmail.com")
