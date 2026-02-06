@@ -2,6 +2,8 @@ from fastapi import APIRouter,HTTPException
 from pydantic import BaseModel,EmailStr
 from app.services.auth_signup import Signup
 from app.services.auth_signin import SignIn
+from app.services.change_pass_otp import reset_password_request_otp
+from app.services.reset_password import reset_password_verify_otp
 router=APIRouter(prefix="/auth",tags=["Authentication"])
 class SignUpRequest(BaseModel):
     email:EmailStr
@@ -13,6 +15,12 @@ class VerifyOtpRequst(BaseModel):
 class SignInRequest(BaseModel):
     email:EmailStr
     password:str
+class ForgetPassword(BaseModel):
+    email:EmailStr
+class SetNewPassword(BaseModel):
+    email:EmailStr
+    otp:str
+    newpassword:str
 @router.post("/signup")
 def signup_user(data:SignUpRequest):
     try:
@@ -48,3 +56,19 @@ def signin_user(data:SignInRequest):
         return {"token":token,"token_type":"bearer"}
     except Exception as e:
         raise HTTPException(status_code=400,detail=str(e))   
+@router.post("/forget-password")
+def forget_password_request(data:ForgetPassword):
+    try:
+        reset_password_request_otp(data.email)
+        return {"message":"Password Change OTP sent succesfully"}
+    except Exception as e:
+        raise HTTPException(status_code=400,detail=str(e))  
+@router.post("/change-password")
+def set_new_password(data:SetNewPassword):
+    try:
+        reset_password_verify_otp(data.email,data.otp,data.newpassword)
+        return {"message":"password reset is succesfull!"}
+    except Exception as e:
+        raise HTTPException(status_code=400,detail=str(e))  
+    
+

@@ -32,4 +32,3 @@ def reset_password_verify_otp(email, otp, new_password):
     email_verifications.delete_one({"_id": record["_id"]})
 
     print("Password reset successful")
-reset_password_verify_otp("hemanthlokesh58@gmail.com","622734","Hemanth1705")
