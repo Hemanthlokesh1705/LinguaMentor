@@ -1,5 +1,6 @@
-from fastapi import APIRouter,HTTPException
+from fastapi import APIRouter,HTTPException, Depends
 from pydantic import BaseModel,EmailStr
+from app.dependencies.auth_dependency import get_current_user
 from app.services.auth_signup import Signup
 from app.services.auth_signin import SignIn
 from app.services.change_pass_otp import reset_password_request_otp
@@ -71,4 +72,18 @@ def set_new_password(data:SetNewPassword):
     except Exception as e:
         raise HTTPException(status_code=400,detail=str(e))  
     
-
+@router.get("/me")
+def get_current_user_profile(user_id: str = Depends(get_current_user)):
+    from app.core.database import users
+    from bson import ObjectId
+    
+    user = users.find_one({"_id": ObjectId(user_id)})
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    return {
+        "id": str(user["_id"]),
+        "username": user.get("username", "Learner"),
+        "email": user.get("email"),
+        "plan": user.get("plan", "Free Plan")
+    }

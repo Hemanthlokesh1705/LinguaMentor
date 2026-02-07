@@ -62,9 +62,13 @@ def load_chat(conversation_id: str, user_id: str = Depends(get_current_user)):
         "user_id": ObjectId(user_id)
     })
     if not conv:
+        print(f"DEBUG: 403 Error - Chat not found for user. ConvoID: {conversation_id}, UserID: {user_id}")
         raise HTTPException(status_code=403, detail="Unauthorized chat")
     cursor = messages.find(
-        {"conversation_id": convo_id}
+        {
+            "conversation_id": convo_id,
+            "role": {"$ne": "system"}
+        }
     ).sort("timestamp", 1)
     chat_messages = [{
         "role": msg["role"],

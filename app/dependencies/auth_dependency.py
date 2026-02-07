@@ -3,10 +3,7 @@ from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from app.utils.jwt_utils import verify_token
 from jwt import ExpiredSignatureError, InvalidTokenError
 security = HTTPBearer()
-
-
 def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(security)):
-
     try:
         payload = verify_token(credentials.credentials)
         return payload["user_id"]
