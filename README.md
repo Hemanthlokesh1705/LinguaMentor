@@ -1,10 +1,6 @@
 # LinguaMentor
 
 <p align="center">
-  <img src="./frontend/public/robo_mentor.png" alt="LinguaMentor assistant" width="220" />
-</p>
-
-<p align="center">
   <img src="./frontend/public/rocket.png" alt="LinguaMentor launch visual" width="540" />
 </p>
 
@@ -215,36 +211,7 @@ The frontend includes reusable components and a clear route layout to support fa
 
 ---
 
-## What To Improve Next
 
-If your goal is to reach Google-level engineering interviews, these are high-value improvements:
 
-1. Add backend unit/integration tests with pytest.
-2. Add input validation and stricter error model consistency.
-3. Move secrets/config to typed settings classes.
-4. Add rate limiting on OTP and auth endpoints.
-5. Add CI checks for lint, tests, and type safety.
-6. Add Docker Compose for one-command local startup.
-7. Add structured logging and request tracing.
 
-These improvements demonstrate practical reliability and software design judgment.
 
----
-
-## Interview Talking Points
-
-Use this project to discuss:
-
-- How token-based auth is implemented and verified.
-- How chat history is persisted and fetched efficiently.
-- How prompt/context assembly works before LLM calls.
-- Trade-offs between model quality, latency, and context window.
-- How you would evolve this into a multi-tenant production service.
-
-This creates a credible story in interviews: you built a real system, not just a static UI.
-
----
-
-## License
-
-Add a license file if you plan to share publicly (MIT is a common choice for portfolio repositories).
