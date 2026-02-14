@@ -2,7 +2,7 @@
 
 
 <p align="center">
-  <img src="./frontend/public/rocket.png" alt="LinguaMentor launch visual" width="500" />
+  <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExODd2dW1zb2liNmNhN2N5N2R4b2oxNjM0dDF2enVvM3g4cnd2aG85NiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/coxQHKASG60HrHtvkt/giphy.gif" alt="LinguaMentor demo gif" width="560" />
 </p>
 
 LinguaMentor is a full-stack application for language practice. A user creates an account, verifies OTP, logs in, and chats with an AI mentor. Each chat is saved as a conversation so the user can return later and continue.
@@ -188,3 +188,4 @@ Open:
 - Backend: `http://localhost:8000`
 
 ---
+
